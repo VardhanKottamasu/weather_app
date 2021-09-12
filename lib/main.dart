@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -15,9 +15,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    getLocation();
     super.initState();
-
   }
   void getLocation() async
   {
@@ -33,6 +31,12 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void getData() async
+  {
+    String url='api.openweathermap.org/data/2.5/weather?q=London&appid=6a34e323f1c6b1a4667c5f111ffc7cf7';
+    Response response=await get(Uri.parse(url));
+    print(response.statusCode);
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         child: ElevatedButton(
           child: Text('Get Location'),
           onPressed: (){
-            getLocation();
+            getData();
           }
         ),
       ),
