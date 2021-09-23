@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/screens/loading_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp1());
 }
 
 class MyApp extends StatelessWidget {
@@ -27,13 +27,23 @@ class _MyApp1State extends State<MyApp1> {
   @override
   void getData() async {
     String url =
-        'https://api.openweathermap.org/data/2.5/weather?lat=23.12&lon=35&appid=6a34e323f1c6b1a4667c5f111ffc7cf7';
+        'https://api.openweathermap.org/data/2.5/weather?lat=23.12&lon=35&appid=6a34e323f1c6b1a4667c5f111ffc7cf7';'https://api.openweathermap.org/data/2.5/weather?lat=23.12&lon=35&appid=6a34e323f1c6b1a4667c5f111ffc7cf7';
     http.Response response = await http.get(Uri.parse(url));
-    print(response.statusCode);
+    // print(response.statusCode);
     if (response.statusCode == 200) {
       String data = response.body;
-      var variable = jsonDecode(data)['weather'][0]['main'];
-      print(variable);
+
+      var decodedData = jsonDecode(data);
+
+      double latitude = decodedData['coord']['lat'];
+
+      String weatherDescription = decodedData['weather'][0]['description'];
+
+
+      double temperature = decodedData['main']['temp'];
+      print(latitude);
+      print(weatherDescription);
+      print(temperature);
     } else
       print("some error!");
   }
